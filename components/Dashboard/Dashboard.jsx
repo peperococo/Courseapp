@@ -9,6 +9,10 @@ import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
+
+let gone =(id)=>{
+  axios.delete(`http://localhost:8081/course/${id}`).then((res)=>{alert("Succesfully deleted")}).catch((err)=>{console.log(err)})
+}
 const Dashboard = () => {
   const [course, setCourse] = useState([]);
 
@@ -23,6 +27,7 @@ const Dashboard = () => {
     <Box sx={{ width: '100%', padding: 2 }}>
       <Grid container spacing={3}>
         {course.map((course) => (
+          
           <Grid item xs={12} sm={6} md={4} key={course.courseId}>
             <Card sx={{ maxWidth: 345, margin: 'auto' }}>
               <CardMedia
@@ -45,8 +50,7 @@ const Dashboard = () => {
                   Fees: ₹{course.fee}
                 </Typography>
               </CardContent>
-              <Button variant="contained" sx={{ mr: 2 }}>Add</Button>
-            <Button variant="contained">Delete</Button>
+            <Button variant="contained" onClick={()=>{gone(course.courseId)}}>Delete</Button>
             </Card>
           </Grid>
         ))}
